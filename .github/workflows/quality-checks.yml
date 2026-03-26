@@ -1,0 +1,279 @@
+name: Quality Checks
+
+on:
+  push:
+    branches: [ main, develop, staging ]
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  # Code Quality Checks
+  quality-checks:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+        cache-dependency-path: 'public/package-lock.json'
+        
+    - name: Install dependencies
+      run: |
+        cd public
+        npm install
+        
+    - name: HTML Validation
+      run: |
+        cd public
+        echo "🔍 Validating HTML files..."
+        
+        # Check for required HTML structure
+        for html_file in *.html; do
+          if [ -f "$html_file" ]; then
+            echo "✅ $html_file exists"
+            
+            # Check for DOCTYPE
+            if grep -q "<!DOCTYPE html" "$html_file"; then
+              echo "  ✅ DOCTYPE found in $html_file"
+            else
+              echo "  ❌ Missing DOCTYPE in $html_file"
+              exit 1
+            fi
+            
+            # Check for viewport meta tag
+            if grep -q "viewport" "$html_file"; then
+              echo "  ✅ Viewport meta tag found in $html_file"
+            else
+              echo "  ❌ Missing viewport meta tag in $html_file"
+              exit 1
+            fi
+            
+            # Check for charset
+            if grep -q "charset=" "$html_file"; then
+              echo "  ✅ Charset found in $html_file"
+            else
+              echo "  ❌ Missing charset in $html_file"
+              exit 1
+            fi
+          fi
+        done
+        
+    - name: CSS Validation
+      run: |
+        cd public
+        echo "🎨 Validating CSS files..."
+        
+        for css_file in css/*.css; do
+          if [ -f "$css_file" ]; then
+            echo "✅ $css_file exists"
+            
+            # Check for CSS variables
+            if grep -q "var(--" "$css_file"; then
+              echo "  ✅ CSS variables used in $css_file"
+            fi
+            
+            # Check for responsive design
+            if grep -q "@media" "$css_file"; then
+              echo "  ✅ Media queries found in $css_file"
+            fi
+          fi
+        done
+        
+    - name: JavaScript Validation
+      run: |
+        cd public
+        echo "⚡ Validating JavaScript files..."
+        
+        for js_file in js/*.js; do
+          if [ -f "$js_file" ]; then
+            echo "✅ $js_file exists"
+            
+            # Check for syntax errors
+            if node -c "$js_file" 2>/dev/null; then
+              echo "  ✅ Valid syntax in $js_file"
+            else
+              echo "  ❌ Syntax error in $js_file"
+              exit 1
+            fi
+            
+            # Check for modern JS features
+            if grep -q "const\|let\|=>" "$js_file"; then
+              echo "  ✅ Modern JS used in $js_file"
+            fi
+          fi
+        done
+        
+    - name: File Size Analysis
+      run: |
+        cd public
+        echo "📊 Analyzing file sizes..."
+        
+        # HTML files
+        for html_file in *.html; do
+          if [ -f "$html_file" ]; then
+            size=$(stat -c%s "$html_file")
+            echo "📄 $html_file: $size bytes"
+            
+            if [ $size -gt 50000 ]; then
+              echo "  ⚠️ Large HTML file: $html_file"
+            fi
+          fi
+        done
+        
+        # CSS files
+        for css_file in css/*.css; do
+          if [ -f "$css_file" ]; then
+            size=$(stat -c%s "$css_file")
+            echo "🎨 $css_file: $size bytes"
+            
+            if [ $size -gt 25000 ]; then
+              echo "  ⚠️ Large CSS file: $css_file"
+            fi
+          fi
+        done
+        
+        # JavaScript files
+        for js_file in js/*.js; do
+          if [ -f "$js_file" ]; then
+            size=$(stat -c%s "$js_file")
+            echo "⚡ $js_file: $size bytes"
+            
+            if [ $size -gt 50000 ]; then
+              echo "  ⚠️ Large JS file: $js_file"
+            fi
+          fi
+        done
+        
+    - name: Security Checks
+      run: |
+        cd public
+        echo "🔒 Running security checks..."
+        
+        # Check for hardcoded secrets
+        echo "🔍 Checking for hardcoded secrets..."
+        if grep -r "AIzaSy\|sk-\|pk_\|ghp_\|gho_\|ghu_\|ghs_\|ghr_" . --exclude-dir=.git; then
+          echo "❌ Potential hardcoded secrets found!"
+          exit 1
+        else
+          echo "✅ No hardcoded secrets found"
+        fi
+        
+        # Check for console.log in production
+        echo "🔍 Checking for console.log statements..."
+        if grep -r "console\.log" js/; then
+          echo "⚠️ console.log statements found in JavaScript files"
+        else
+          echo "✅ No console.log statements found"
+        fi
+        
+    - name: Performance Checks
+      run: |
+        cd public
+        echo "⚡ Running performance checks..."
+        
+        # Check for optimized images (if any)
+        for img_file in assets/images/*.{jpg,jpeg,png,gif,webp}; do
+          if [ -f "$img_file" ]; then
+            size=$(stat -c%s "$img_file")
+            echo "🖼️ $img_file: $size bytes"
+            
+            if [ $size -gt 500000 ]; then
+              echo "  ⚠️ Large image file: $img_file (consider optimization)"
+            fi
+          fi
+        done
+        
+        # Check for minified CSS/JS (in production)
+        if [[ $GITHUB_REF == 'refs/heads/main' ]]; then
+          echo "🔍 Checking for minified files in production..."
+          
+          # Check if CSS could be minified
+          for css_file in css/*.css; do
+            if [ -f "$css_file" ]; then
+              # Simple check for unnecessary whitespace
+              whitespace_count=$(grep -o ' ' "$css_file" | wc -l)
+              if [ $whitespace_count -gt 100 ]; then
+                echo "⚠️ $css_file could benefit from minification"
+              fi
+            fi
+          done
+        fi
+        
+    - name: Accessibility Checks
+      run: |
+        cd public
+        echo "♿ Running accessibility checks..."
+        
+        # Check for alt attributes in images
+        for html_file in *.html; do
+          if [ -f "$html_file" ]; then
+            echo "🔍 Checking accessibility in $html_file..."
+            
+            # Check for images without alt
+            img_count=$(grep -c "<img" "$html_file" || true)
+            alt_count=$(grep -c "alt=" "$html_file" || true)
+            
+            if [ $img_count -gt 0 ] && [ $alt_count -lt $img_count ]; then
+              echo "  ⚠️ Some images in $html_file may be missing alt attributes"
+            fi
+            
+            # Check for semantic HTML5 elements
+            if grep -q "<header\|<nav\|<main\|<section\|<article\|<footer" "$html_file"; then
+              echo "  ✅ Semantic HTML5 elements found in $html_file"
+            fi
+          fi
+        done
+
+  # Dependency Security Audit
+  security-audit:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+        cache-dependency-path: 'public/package-lock.json'
+        
+    - name: Install dependencies
+      run: |
+        cd public
+        npm install --production=false
+        
+    - name: Run security audit
+      run: |
+        cd public
+        echo "🔒 Running security audit..."
+        
+        # Run npm audit
+        npm audit --audit-level=high || echo "⚠️ Security audit completed with warnings"
+        
+        # Check for known vulnerabilities
+        npm audit --json > audit-report.json || true
+        
+        # Display summary
+        if [ -f audit-report.json ]; then
+          vulnerabilities=$(jq '.vulnerabilities | length' audit-report.json 2>/dev/null || echo "0")
+          echo "📊 Vulnerabilities found: $vulnerabilities"
+          
+          if [ "$vulnerabilities" -gt 0 ]; then
+            echo "🔍 See audit-report.json for details"
+          fi
+        fi
+        
+    - name: Upload audit report
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: security-audit-report
+        path: public/audit-report.json
+        retention-days: 30

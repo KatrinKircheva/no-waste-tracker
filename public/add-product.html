@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>No Waste Tracker - Добави продукт</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/forms.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="nav-brand">
+                <span class="logo">🌱 No Waste Tracker</span>
+            </div>
+            <div class="nav-links">
+                <a href="dashboard.html">Dashboard</a>
+                <a href="add-product.html" class="active">Добави продукт</a>
+                <a href="stats.html">Статистика</a>
+                <a href="recipes.html">Рецепти</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="add-product-container">
+        <div class="form-container">
+            <h1>➕ Добави нов продукт</h1>
+            <form id="addProductForm" class="product-form">
+                <div class="form-group">
+                    <label for="productName">Име на продукта*</label>
+                    <input type="text" id="productName" name="name" required placeholder="напр. Мляко">
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="productCategory">Категория*</label>
+                        <select id="productCategory" name="category" required>
+                            <option value="">Избери категория</option>
+                            <option value="млечни">Млечни продукти</option>
+                            <option value="зеленчуци">Зеленчуци</option>
+                            <option value="плодове">Плодове</option>
+                            <option value="месо">Месо</option>
+                            <option value="хляб">Хляб и тестени изделия</option>
+                            <option value="консерви">Консерви</option>
+                            <option value="замразени">Замразени храни</option>
+                            <option value="напитки">Напитки</option>
+                            <option value="други">Други</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="productQuantity">Количество*</label>
+                        <div class="quantity-input">
+                            <input type="number" id="productQuantity" name="quantity" required min="0.1" step="0.1" placeholder="1">
+                            <select id="productUnit" name="unit">
+                                <option value="бр">бр</option>
+                                <option value="кг">кг</option>
+                                <option value="г">г</option>
+                                <option value="л">л</option>
+                                <option value="мл">мл</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="expiryDate">Срок на годност*</label>
+                    <input type="date" id="expiryDate" name="expiryDate" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="productNotes">Бележки (по желание)</label>
+                    <textarea id="productNotes" name="notes" rows="3" placeholder="напр. Отворено, в хладилник..."></textarea>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn-primary">
+                        ➕ Добави продукт
+                    </button>
+                    <a href="dashboard.html" class="btn-secondary">
+                        ❌ Отказ
+                    </a>
+                </div>
+            </form>
+        </div>
+
+        <!-- Quick Add Section -->
+        <div class="quick-add-section">
+            <h2>⚡ Бързо добавяне</h2>
+            <div class="quick-add-grid">
+                <button class="quick-add-btn" data-name="Мляко" data-category="млечни" data-unit="бр">
+                    🥛 Мляко
+                </button>
+                <button class="quick-add-btn" data-name="Хляб" data-category="хляб" data-unit="бр">
+                    🍞 Хляб
+                </button>
+                <button class="quick-add-btn" data-name="Яйца" data-category="млечни" data-unit="бр">
+                    🥚 Яйца
+                </button>
+                <button class="quick-add-btn" data-name="Домати" data-category="зеленчуци" data-unit="бр">
+                    🍅 Домати
+                </button>
+                <button class="quick-add-btn" data-name="Сирене" data-category="млечни" data-unit="кг">
+                    🧀 Сирене
+                </button>
+                <button class="quick-add-btn" data-name="Кашкавал" data-category="млечни" data-unit="кг">
+                    🧈 Кашкавал
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
+    <script src="js/firebase-config.js"></script>
+    <script src="js/products.js"></script>
+    <script src="js/helpers.js"></script>
+    <script src="js/add-product.js"></script>
+</body>
+</html>

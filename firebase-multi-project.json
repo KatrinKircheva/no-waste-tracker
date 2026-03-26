@@ -1,0 +1,25 @@
+{
+  "projects": {
+    "production": {
+      "project": "no-waste-tracker",
+      "hosting": {
+        "target": "production",
+        "public": "public"
+      }
+    },
+    "staging": {
+      "project": "no-waste-tracker-staging", 
+      "hosting": {
+        "target": "staging",
+        "public": "public"
+      }
+    },
+    "development": {
+      "project": "no-waste-tracker-dev",
+      "hosting": {
+        "target": "development", 
+        "public": "public"
+      }
+    }
+  }
+}

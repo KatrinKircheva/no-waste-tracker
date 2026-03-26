@@ -1,0 +1,43 @@
+{
+  "name": "no-waste-tracker",
+  "version": "1.0.0",
+  "description": "No Waste Tracker - Hack TUES 12 Project",
+  "main": "index.html",
+  "scripts": {
+    "start": "python -m http.server 8080",
+    "serve": "npx http-server -p 8080 -c-1",
+    "build": "echo 'Building for production...'",
+    "lint": "echo 'Linting files...'",
+    "test": "echo 'Running tests...'",
+    "deploy": "firebase deploy",
+    "deploy:preview": "firebase hosting:channel:deploy preview",
+    "deploy:dev": "firebase deploy --project no-waste-tracker-dev",
+    "deploy:staging": "firebase deploy --project no-waste-tracker-staging",
+    "deploy:prod": "firebase deploy --project no-waste-tracker"
+  },
+  "keywords": [
+    "hackathon",
+    "firebase",
+    "waste-reduction",
+    "sustainability",
+    "food-waste",
+    "hack-tues"
+  ],
+  "author": "Hack TUES 12 Team",
+  "license": "MIT",
+  "devDependencies": {
+    "http-server": "^14.1.1",
+    "firebase-tools": "^12.0.0"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/username/no-waste-tracker.git"
+  },
+  "bugs": {
+    "url": "https://github.com/username/no-waste-tracker/issues"
+  },
+  "homepage": "https://no-waste-tracker.web.app"
+}
