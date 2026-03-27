@@ -35,25 +35,26 @@ class UIRenderer {
           ${product.notes ? `<div class="product-notes">📝 ${product.notes}</div>` : ''}
         </div>
         
-        ${product.action === 'none' ? `
-          <div class="product-actions">
-            <button class="action-btn btn-used" onclick="markProductUsed('${product.id}')">
-              ✅ Използван
-            </button>
-            <button class="action-btn btn-thrown" onclick="markProductThrown('${product.id}')">
-              ❌ Изхвърлен
-            </button>
-            <button class="action-btn btn-edit" onclick="editProduct('${product.id}')">
-              ✏️ Редактирай
-            </button>
+        <div class="product-actions">
+            ${product.action === 'none' ? `
+              <button class="action-btn btn-used" onclick="markProductUsed('${product.id}')">
+                ✅ Използван
+              </button>
+              <button class="action-btn btn-thrown" onclick="markProductThrown('${product.id}')">
+                ❌ Изхвърлен
+              </button>
+              <button class="action-btn btn-edit" onclick="editProduct('${product.id}')">
+                ✏️ Редактирай
+              </button>
+              <button class="action-btn btn-delete" onclick="deleteProduct('${product.id}')">
+                🗑️ Изтрий
+              </button>
+            ` : `
+              <span class="action-result">
+                ${product.action === 'used' ? '✅ Използван' : '❌ Изхвърлен'}
+              </span>
+            `}
           </div>
-        ` : `
-          <div class="product-actions">
-            <span class="action-result">
-              ${product.action === 'used' ? '✅ Използван' : '❌ Изхвърлен'}
-            </span>
-          </div>
-        `}
       </div>
     `;
   }

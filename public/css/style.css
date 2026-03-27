@@ -157,6 +157,57 @@ body {
   border-color: var(--primary-color);
 }
 
+/* Action Buttons */
+.action-btn {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin: 0.25rem;
+}
+
+.btn-used {
+  background: #4CAF50;
+  color: white;
+}
+
+.btn-used:hover {
+  background: #45a049;
+  transform: translateY(-1px);
+}
+
+.btn-thrown {
+  background: #f44336;
+  color: white;
+}
+
+.btn-thrown:hover {
+  background: #d32f2f;
+  transform: translateY(-1px);
+}
+
+.btn-edit {
+  background: #2196F3;
+  color: white;
+}
+
+.btn-edit:hover {
+  background: #1976D2;
+  transform: translateY(-1px);
+}
+
+.btn-delete {
+  background: #FF9800;
+  color: white;
+}
+
+.btn-delete:hover {
+  background: #F57C00;
+  transform: translateY(-1px);
+}
+
 /* Grid Layouts */
 .products-grid {
   display: grid;

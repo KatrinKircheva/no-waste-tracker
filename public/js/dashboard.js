@@ -130,6 +130,41 @@ window.editProduct = function(productId) {
   window.helpers.showNotification('Редактирането на продукти ще бъде налично скоро!', 'info');
 };
 
+window.deleteProduct = async function(productId) {
+  try {
+    // Confirm deletion
+    const confirmed = confirm('Сигурни ли сте, че искате да изтриете този продукт?');
+    if (!confirmed) {
+      return;
+    }
+
+    const result = await window.productsManager.deleteProduct(productId);
+    if (result.success) {
+      window.helpers.showNotification('Продуктът е изтрит успешно!', 'success');
+      
+      // Remove the product card from UI immediately
+      const productCard = document.querySelector(`[data-product-id="${productId}"]`);
+      if (productCard) {
+        productCard.style.opacity = '0';
+        productCard.style.transform = 'scale(0.8)';
+        setTimeout(() => {
+          productCard.remove();
+        }, 300);
+      }
+      
+      // Refresh data after a short delay
+      setTimeout(() => {
+        window.dashboard.loadData();
+      }, 1000);
+    } else {
+      window.helpers.showNotification('Грешка: ' + result.error, 'error');
+    }
+  } catch (error) {
+    console.error('Error deleting product:', error);
+    window.helpers.showNotification('Възникна грешка', 'error');
+  }
+};
+
 // Initialize dashboard when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
   window.dashboard = new Dashboard();
