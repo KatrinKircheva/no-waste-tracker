@@ -242,6 +242,33 @@ class ProductsManager {
       return [];
     }
   }
+
+  // Delete product
+  async deleteProduct(productId) {
+    try {
+      // First, get the product to verify ownership
+      const productDoc = await this.db.collection('products').doc(productId).get();
+      
+      if (!productDoc.exists) {
+        return { success: false, error: 'Продуктът не е намерен' };
+      }
+
+      const product = productDoc.data();
+      
+      // Check if the product belongs to the current user
+      if (product.userId !== this.userId) {
+        return { success: false, error: 'Нямате право да изтриете този продукт' };
+      }
+
+      // Delete the product
+      await this.db.collection('products').doc(productId).delete();
+      
+      return { success: true };
+    } catch (error) {
+      console.error('Error deleting product:', error);
+      return { success: false, error: error.message };
+    }
+  }
 }
 
 // Initialize products manager
