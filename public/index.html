@@ -6,101 +6,344 @@
     <title>No Waste Tracker - Намалете хранителните отпадъци</title>
     <link rel="stylesheet" href="css/style.css">
     <style>
-        /* Landing page specific styles */
-        .hero {
-            background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
-            min-height: 100vh;
+        body {
+            scroll-behavior: smooth;
+        }
+
+        .header h1 {
+            padding-left: 4.5rem;
+            vertical-align: middle;
+            font-size: 1.5rem;
+            color: rgba(25, 170, 14, 0.9);
+            font-family: serif;
+            text-decoration: none;
+            border: none;
+        }
+
+        /* Add a black background color to the top navigation */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            background-color: white;
+            overflow: hidden;
+            align-items: center;
+            padding: 0.6rem;
+            border-bottom: 1px grey solid;
+            padding-right: 3rem;
+        }
+
+        /* Style the links inside the navigation bar */
+        .nav a {
+            gap: 3rem;
+            color: rgb(107, 180, 107);
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+            font-size: 17px;
+            float: none;
+            /* remove existing float */
+            display: inline-block;
+        }
+
+        /* Change the color of links on hover */
+        .nav a:hover {
+            background-color: rgb(156, 211, 156);
+            color: black;
+            border-radius: 6rem;
+            font-size: larger;
+            color: black;
+            font-family: serif;
+        }
+
+        .nav {
+            gap: 1rem;
+            display: flex;
+            justify-content: center;
+            border-radius: 6rem;
+            padding-right: 1rem;
+        }
+
+        #title {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            padding-right: 1rem;
+        }
+
+        button {
+            font-family: Arial, Helvetica, sans-serif;
+            font-weight: bold;
+            color: white;
+            background-color: rgb(132, 199, 132);
+            border: none;
+            display: flex;
+            padding: 1rem 1.5rem;
+            justify-content: flex-end;
+            border-radius: 2rem;
+        }
+
+        button:hover {
+            color: white;
+            border: none;
+            background-color: rgb(107, 180, 107);
+        }
+
+        .banner {
+            display: block;
+            position: relative;
+            width: 100%;
+            height: auto;
+        }
+
+        .banner::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 63%;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0));
+            z-index: 1;
+        }
+
+        .banner img {
+            display: block;
+            width: 100%;
+            height: 400px;
+            border-bottom: 3px solid black;
+            z-index: 0;
+        }
+
+        .banner h2,
+        .banner p {
+            position: absolute;
+            font-size: 50px;
+            font-weight: bolder;
+            font-family: Arial, Helvetica, sans-serif;
+            color: white;
+            bottom: 6rem;
+            left: 1.5rem;
+            margin: 0;
+            padding: 0;
+            z-index: 2;
+        }
+
+        .banner p {
+            font-size: 18px;
+            font-weight: normal;
+            font-family: monospace;
+            bottom: 3rem;
+            color: rgb(209, 205, 209);
+        }
+
+        .expiring {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            padding-top: 0.3rem;
+            margin-left: 5rem;
+            margin-right: 5rem;
+        }
+
+        .expiring-item {
+            display: flex;
+            flex-wrap: wrap;
+            flex-direction: column;
+            align-items: center;
+            align-content: center;
+            border-radius: 10px;
+            border: 2px solid transparent;
+        }
+
+        .expiring-item.days-two {
+            border-color: #eba7a5;
+            background-color: #feeceb;
+            padding: 1.25rem;
+        }
+
+        .expiring-item.days-five {
+            border-color: #f6c493;
+            background-color: rgb(248 239 230);
+            padding: 1.25rem;
+        }
+
+        .expiring-item.still {
+            border-color: rgb(159 209 177);
+            background-color: rgb(238 240 234);
+            padding: 1.25rem;
+        }
+
+        span.numbers {
+            font-weight: bolder;
+            color: black;
+            font-size: 1.75rem;
+        }
+
+        span {
+            font-family: cursive;
+        }
+
+        span.paragraph {
+            font-weight: 600;
+            font-size: 0.875rem;
+        }
+
+        .expiring-item p {
+            margin: 0rem;
+        }
+
+        h3 {
+            margin-left: 5rem;
+            font-weight: 550;
+        }
+
+        .statistics {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin-top: 1rem;
+            margin-left: 5rem;
+            margin-right: 5rem;
+        }
+
+        .statistics-item {
+            display: flex;
+            flex-wrap: wrap;
+            flex-direction: row;
+            align-items: center;
+            align-content: center;
+            border-radius: 10px;
+            border: 1px solid transparent;
+        }
+
+        .statistics-item.saved {
+            display: flex;
+            flex-wrap: wrap;
+            flex-direction: column;
+            align-items: center;
+            align-content: center;
+            border-color: rgb(159 209 177);
+            background-color: rgb(238 240 234);
+            padding: 1.25rem;
+        }
+
+        .statistics-item.discarded {
+            display: flex;
+            flex-wrap: wrap;
+            flex-direction: column;
+            border-color: #f1cac7;
+            background-color: #f7ebe8;
+            padding: 1.25rem;
+        }
+
+        span.number {
+            padding-top: 0.3rem;
+            font-weight: bolder;
+            color: black;
+            font-size: 1.75rem;
+        }
+
+        p.paragraph {
+            margin: 0;
+            color: gray;
+        }
+
+        /* ===== MODAL (Add Product) ===== */
+        .modal {
+            position: fixed;
+            inset: 0;
             display: flex;
             align-items: center;
             justify-content: center;
-            text-align: center;
-            padding: 2rem;
+            padding: 1.5rem;
+            background: rgba(0, 0, 0, 0.45);
+            z-index: 999;
         }
 
-        .hero-content {
-            max-width: 800px;
-            animation: fadeInUp 1s ease-out;
+        .modal .modal-content {
+            width: min(640px, 100%);
+            max-height: calc(100vh - 3rem);
+            overflow: auto;
+            background: white;
+            border-radius: 14px;
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            padding: 1.25rem 1.25rem 1rem;
+            background-color: #eef6d2;
         }
 
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        .modal .close {
+            float: right;
+            font-size: 28px;
+            line-height: 1;
+            cursor: pointer;
+            user-select: none;
+            color: #333;
         }
 
-        .hero-title {
-            font-size: 3.5rem;
-            font-weight: bold;
-            margin-bottom: 1.5rem;
-            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+        .modal h2 {
+            margin: 0 0 1rem;
+            font-family: Arial, Helvetica, sans-serif;
         }
 
-        .hero-subtitle {
-            font-size: 1.3rem;
-            color: var(--text-secondary);
-            margin-bottom: 2rem;
-            line-height: 1.6;
+        #addProductForm {
+            display: grid;
+            gap: 0.6rem;
         }
 
-        .hero-buttons {
-            display: flex;
-            gap: 1rem;
+        #addProductForm label {
+            font-family: Arial, Helvetica, sans-serif;
+            font-weight: 600;
+            color: #333;
+        }
+
+        #addProductForm input,
+        #addProductForm select,
+        #addProductForm textarea {
+            width: 100%;
+            border: 1px solid rgba(0, 0, 0, 0.18);
+            border-radius: 10px;
+            padding: 0.65rem 0.75rem;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+
+        #addProductForm textarea {
+            min-height: 90px;
+            resize: vertical;
+        }
+
+        #addProductForm button[type="submit"] {
             justify-content: center;
+            width: 100%;
+        }
+
+        .quick-add-buttons {
+            display: flex;
             flex-wrap: wrap;
-            margin-bottom: 3rem;
+            gap: 0.5rem;
         }
 
-        .btn-primary-large {
-            background: var(--primary-color);
-            color: white;
-            border: none;
-            padding: 1rem 2rem;
-            border-radius: 12px;
-            font-size: 1.2rem;
+        .quick-add-buttons .quick-add-btn {
+            justify-content: center;
+            padding: 0.75rem 1rem;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        /* ===== ACTIVE MENU ===== */
+        .nav a.active {
+            background-color: rgb(156, 211, 156);
+            border-radius: 6rem;
+            color: black;
             font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            display: inline-block;
         }
 
-        .btn-primary-large:hover {
-            background: var(--secondary-color);
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(46, 204, 113, 0.3);
-        }
-
-        .btn-secondary-large {
-            background: var(--bg-card);
-            color: var(--text-primary);
-            border: 2px solid var(--border-color);
-            padding: 1rem 2rem;
-            border-radius: 12px;
-            font-size: 1.2rem;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            display: inline-block;
-        }
-
-        .btn-secondary-large:hover {
-            border-color: var(--primary-color);
-            color: var(--primary-color);
-            transform: translateY(-2px);
-        }
-
+        /* Features section styling */
         .features {
             padding: 4rem 2rem;
-            background: var(--bg-secondary);
+            background: #f8f9fa;
         }
 
         .features-container {
@@ -112,7 +355,7 @@
             text-align: center;
             font-size: 2.5rem;
             margin-bottom: 3rem;
-            color: var(--text-primary);
+            color: #333;
         }
 
         .features-grid {
@@ -122,18 +365,18 @@
         }
 
         .feature-card {
-            background: var(--bg-card);
+            background: white;
             border-radius: 12px;
             padding: 2rem;
             text-align: center;
-            box-shadow: var(--shadow);
-            border: 1px solid var(--border-color);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e0e0e0;
             transition: all 0.3s ease;
         }
 
         .feature-card:hover {
             transform: translateY(-5px);
-            box-shadow: var(--shadow-hover);
+            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15);
         }
 
         .feature-icon {
@@ -145,246 +388,225 @@
             font-size: 1.3rem;
             font-weight: bold;
             margin-bottom: 1rem;
-            color: var(--text-primary);
+            color: #333;
         }
 
         .feature-description {
-            color: var(--text-secondary);
+            color: #666;
             line-height: 1.6;
         }
 
-        .stats-section {
-            padding: 4rem 2rem;
-            background: var(--bg-primary);
-        }
-
-        .stats-container {
-            max-width: 1000px;
-            margin: 0 auto;
-            text-align: center;
-        }
-
-        .stats-title {
-            font-size: 2.5rem;
-            margin-bottom: 3rem;
-            color: var(--text-primary);
-        }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 2rem;
-            margin-bottom: 3rem;
-        }
-
-        .stat-item {
-            background: var(--bg-card);
-            border-radius: 12px;
-            padding: 2rem;
-            box-shadow: var(--shadow);
-            border: 1px solid var(--border-color);
-        }
-
-        .stat-number {
-            font-size: 2.5rem;
-            font-weight: bold;
-            color: var(--primary-color);
-            margin-bottom: 0.5rem;
-        }
-
-        .stat-label {
-            color: var(--text-secondary);
-            font-size: 1.1rem;
-        }
-
-        .cta-section {
-            padding: 4rem 2rem;
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-            text-align: center;
-        }
-
-        .cta-title {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-            color: white;
-        }
-
-        .cta-subtitle {
-            font-size: 1.3rem;
-            margin-bottom: 2rem;
-            color: rgba(255, 255, 255, 0.9);
-        }
-
         @media (max-width: 768px) {
-            .hero-title {
-                font-size: 2.5rem;
-            }
-
-            .hero-subtitle {
-                font-size: 1.1rem;
-            }
-
-            .hero-buttons {
+            .header {
                 flex-direction: column;
-                align-items: center;
+                padding: 1rem;
             }
 
-            .btn-primary-large,
-            .btn-secondary-large {
-                width: 100%;
-                max-width: 300px;
+            .header h1 {
+                padding-left: 0;
+                margin-bottom: 1rem;
             }
 
-            .features-title,
-            .stats-title,
-            .cta-title {
-                font-size: 2rem;
+            .nav {
+                padding-right: 0;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .expiring, .statistics {
+                grid-template-columns: 1fr;
+                margin-left: 1rem;
+                margin-right: 1rem;
+            }
+
+            .banner h2 {
+                font-size: 30px;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="hero-content">
-            <h1 class="hero-title">🌱 No Waste Tracker</h1>
-            <p class="hero-subtitle">
-                Намалете хранителните отпадъци, спестете пари и помогнете на планетата.<br>
-                Проследявайте продуктите си и използвайте всичко навреме.
-            </p>
-            <div class="hero-buttons">
-                <a href="dashboard.html" class="btn-primary-large">
-                    🚀 Започни сега
-                </a>
-                <a href="#features" class="btn-secondary-large">
-                    📖 Научи повече
-                </a>
+    <header class="header">
+        <h1 id="title">No-waste tracker</h1>
+
+        <nav class="nav">
+            <a href="#" id="homeLink" class="active">Home</a>
+            <a href="dashboard.html" id="myProductsLink">My products</a>
+            <a href="recipes.html" id="recipesLink">Recipes</a>
+            <a href="stats.html" id="statisticsLink">Statistics</a>
+            <a href="#recycling" id="recyclingLink">Recycling</a>
+        </nav>
+
+        <button type="button" id="addProductBtn">+ Add Product</button>
+    </header>
+
+    <!-- MODAL FOR ADDING PRODUCT -->
+    <div id="addProductModal" class="modal hidden">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Добави продукт</h2>
+            <form id="addProductForm">
+                <label for="productName">Име на продукта:</label>
+                <input type="text" id="productName" name="name" required>
+
+                <label for="productCategory">Категория:</label>
+                <select id="productCategory" name="category" required>
+                    <option value="">Избери категория</option>
+                    <option value="млечни">Млечни</option>
+                    <option value="зеленчуци">Зеленчуци</option>
+                    <option value="плодове">Плодове</option>
+                    <option value="месо">Месо</option>
+                    <option value="хляб">Хляб</option>
+                    <option value="консерви">Консерви</option>
+                    <option value="замразени">Замразени</option>
+                    <option value="напитки">Напитки</option>
+                    <option value="други">Други</option>
+                </select>
+
+                <label for="productQuantity">Количество:</label>
+                <input type="number" id="productQuantity" name="quantity" min="0.1" step="0.1" required>
+
+                <label for="productUnit">Мерна единица:</label>
+                <select id="productUnit" name="unit" required>
+                    <option value="бр">бр</option>
+                    <option value="кг">кг</option>
+                    <option value="л">л</option>
+                    <option value="г">г</option>
+                </select>
+
+                <label for="expiryDate">Дата на изтичане:</label>
+                <input type="date" id="expiryDate" name="expiryDate" required>
+
+                <label for="productNotes">Бележки:</label>
+                <textarea id="productNotes" name="notes"></textarea>
+
+                <button type="submit">Добави продукт</button>
+            </form>
+
+            <h3>Бързо добавяне:</h3>
+            <div class="quick-add-buttons">
+                <button class="quick-add-btn" data-name="Мляко" data-category="млечни" data-unit="л">Мляко</button>
+                <button class="quick-add-btn" data-name="Хляб" data-category="хляб" data-unit="бр">Хляб</button>
+                <button class="quick-add-btn" data-name="Яйца" data-category="млечни" data-unit="бр">Яйца</button>
+                <button class="quick-add-btn" data-name="Картофи" data-category="зеленчуци" data-unit="кг">Картофи</button>
             </div>
         </div>
+    </div>
+
+    <!-- BANNER -->
+    <section class="banner">
+        <h2>Small Habits,<br> Big Impact.</h2>
+        <p>Buy with thought, eat with care.</p>
+        <img src="../banner_3.jpg" alt="food banner">
     </section>
 
-    <!-- Features Section -->
-    <section id="features" class="features">
-        <div class="features-container">
-            <h2 class="features-title">Как работи?</h2>
-            <div class="features-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">📦</div>
-                    <h3 class="feature-title">Добави продукти</h3>
-                    <p class="feature-description">
-                        Въведете продуктите, които имате у дома, с техните срокове на годност и количество.
-                    </p>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">⏰</div>
-                    <h3 class="feature-title">Получавай напомняния</h3>
-                    <p class="feature-description">
-                        Системата ви уведомява кои продукти изтичат скоро, за да ги използвате навреме.
-                    </p>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">🍳</div>
-                    <h3 class="feature-title">Вдъхновени рецепти</h3>
-                    <p class="feature-description">
-                        Получавайте предложения за рецепти, базирани на продуктите, които имате налични.
-                    </p>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">📊</div>
-                    <h3 class="feature-title">Следи напредъка</h3>
-                    <p class="feature-description">
-                        Вижте статистики за вашите навици и как помагате на околната среда.
-                    </p>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">🌍</div>
-                    <h3 class="feature-title">Eco Score</h3>
-                    <p class="feature-description">
-                        Измервайте въздействието си върху околната среда с нашия екологичен скор.
-                    </p>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">💰</div>
-                    <h3 class="feature-title">Спестявай пари</h3>
-                    <p class="feature-description">
-                        Използвайте всичко, което купувате, и спестете пари от намалени отпадъци.
-                    </p>
+    <main>
+        <h3 class="expiring-title">Expiring soon:</h3>
+
+        <!-- EXPIRING -->
+        <section class="expiring">
+            <div class="expiring-item days-two">
+                <span class="paragraph">Expire in 2 days</span>
+                <span class="numbers">0</span>
+                <span>products</span>
+            </div>
+
+            <div class="expiring-item days-five">
+                <span class="paragraph">Expire in 5 days</span>
+                <span class="numbers">0</span>
+                <span>products</span>
+            </div>
+
+            <div class="expiring-item still">
+                <span class="paragraph">Still have time</span>
+                <span class="numbers">0</span>
+                <span>products</span>
+            </div>
+        </section>
+
+        <!-- STATISTICS -->
+        <section class="statistics">
+            <div class="statistics-item saved">
+                <p class="paragraph">Saved products</p>
+                <span class="number">0</span>
+            </div>
+            <div class="statistics-item saved">
+                <p class="paragraph">Money saved</p>
+                <span class="number">0</span>
+            </div>
+            <div class="statistics-item discarded">
+                <p class="paragraph">Discarded</p>
+                <span class="number">0</span>
+            </div>
+        </section>
+
+        <!-- FEATURES -->
+        <section class="features">
+            <div class="features-container">
+                <h2 class="features-title">Как работи?</h2>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">📦</div>
+                        <h3 class="feature-title">Добави продукти</h3>
+                        <p class="feature-description">
+                            Въведете продуктите, които имате у дома, с техните срокове на годност и количество.
+                        </p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">⏰</div>
+                        <h3 class="feature-title">Получавай напомняния</h3>
+                        <p class="feature-description">
+                            Системата ви уведомява кои продукти изтичат скоро, за да ги използвате навреме.
+                        </p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">🍳</div>
+                        <h3 class="feature-title">Вдъхновени рецепти</h3>
+                        <p class="feature-description">
+                            Получавайте предложения за рецепти, базирани на продуктите, които имате налични.
+                        </p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">📊</div>
+                        <h3 class="feature-title">Следи напредъка</h3>
+                        <p class="feature-description">
+                            Вижте статистики за вашите навици и как помагате на околната среда.
+                        </p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">🌍</div>
+                        <h3 class="feature-title">Eco Score</h3>
+                        <p class="feature-description">
+                            Измервайте въздействието си върху околната среда с нашия екологичен скор.
+                        </p>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">💰</div>
+                        <h3 class="feature-title">Спестявай пари</h3>
+                        <p class="feature-description">
+                            Използвайте всичко, което купувате, и спестете пари от намалени отпадъци.
+                        </p>
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
+    </main>
 
-    <!-- Stats Section -->
-    <section class="stats-section">
-        <div class="stats-container">
-            <h2 class="stats-title">Защо е важно?</h2>
-            <div class="stats-grid">
-                <div class="stat-item">
-                    <div class="stat-number">1.3 млрд</div>
-                    <div class="stat-label">тона храна се губят годишно</div>
-                </div>
-                
-                <div class="stat-item">
-                    <div class="stat-number">1/3</div>
-                    <div class="stat-label">от цялата храна се изхвърля</div>
-                </div>
-                
-                <div class="stat-item">
-                    <div class="stat-number">8%</div>
-                    <div class="stat-label">от глобалните емисии са от отпадъци</div>
-                </div>
-                
-                <div class="stat-item">
-                    <div class="stat-number">€600</div>
-                    <div class="stat-label">спестява средно семейство годишно</div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- CTA Section -->
-    <section class="cta-section">
-        <h2 class="cta-title">Готови ли сте да започнете?</h2>
-        <p class="cta-subtitle">
-            Присъединете се към хиляди хора, които вече намаляват отпадъците си
-        </p>
-        <a href="dashboard.html" class="btn-primary-large">
-            🌱 Започнете днес
-        </a>
-    </section>
-
-    <!-- Simple navigation for demo purposes -->
+    <script src="js/firebase-config.js"></script>
+    <script src="js/helpers.js"></script>
+    <script src="js/products.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/add-product.js"></script>
     <script src="js/app.js"></script>
-    <script>
-        // Smooth scrolling for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
-
-        // Add some interactivity to feature cards
-        document.querySelectorAll('.feature-card').forEach(card => {
-            card.addEventListener('mouseenter', function() {
-                this.style.transform = 'translateY(-10px) scale(1.02)';
-            });
-            
-            card.addEventListener('mouseleave', function() {
-                this.style.transform = 'translateY(0) scale(1)';
-            });
-        });
-    </script>
+    <script src="../script.js"></script>
 </body>
 </html>
