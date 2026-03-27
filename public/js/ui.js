@@ -93,19 +93,43 @@ class UIRenderer {
 
   // Render summary cards
   renderSummaryCards(stats) {
-    document.getElementById('totalProducts').textContent = stats.total;
-    document.getElementById('expiringSoon').textContent = stats.useSoon;
-    document.getElementById('usedProducts').textContent = stats.used;
-    document.getElementById('ecoScore').textContent = stats.ecoScore;
+    // Update expiring section cards only
+    const expiringTotalElement = document.getElementById('expiringTotalProducts');
+    const expiringSoonElement = document.getElementById('expiringExpiringSoon');
+    const expiringUsedElement = document.getElementById('expiringUsedProducts');
 
-    // Add color coding to eco score
+    if (expiringTotalElement) {
+      expiringTotalElement.textContent = stats.total;
+      expiringTotalElement.style.color = '#333';
+    }
+    if (expiringSoonElement) {
+      expiringSoonElement.textContent = stats.useSoon;
+      expiringSoonElement.style.color = stats.useSoon > 0 ? '#e67e22' : '#333';
+    }
+    if (expiringUsedElement) {
+      expiringUsedElement.textContent = stats.used;
+      expiringUsedElement.style.color = stats.used > 0 ? '#27ae60' : '#333';
+    }
+
+    // Try to update original summary cards if they exist (for backward compatibility)
+    const totalProductsElement = document.getElementById('totalProducts');
+    const expiringSoonElement2 = document.getElementById('expiringSoon');
+    const usedProductsElement = document.getElementById('usedProducts');
     const ecoScoreElement = document.getElementById('ecoScore');
-    if (stats.ecoScore >= 80) {
-      ecoScoreElement.style.color = 'var(--safe-color)';
-    } else if (stats.ecoScore >= 50) {
-      ecoScoreElement.style.color = 'var(--use-soon-color)';
-    } else {
-      ecoScoreElement.style.color = 'var(--expired-color)';
+
+    if (totalProductsElement) totalProductsElement.textContent = stats.total;
+    if (expiringSoonElement2) expiringSoonElement2.textContent = stats.useSoon;
+    if (usedProductsElement) usedProductsElement.textContent = stats.used;
+    if (ecoScoreElement) {
+      ecoScoreElement.textContent = stats.ecoScore;
+      // Add color coding to eco score
+      if (stats.ecoScore >= 80) {
+        ecoScoreElement.style.color = 'var(--safe-color)';
+      } else if (stats.ecoScore >= 50) {
+        ecoScoreElement.style.color = 'var(--use-soon-color)';
+      } else {
+        ecoScoreElement.style.color = 'var(--expired-color)';
+      }
     }
   }
 
