@@ -98,10 +98,25 @@ class AddProductPage {
         e.target.reset();
         this.setMinDate();
         
-        // Redirect to dashboard after a short delay
-        setTimeout(() => {
-          window.location.href = 'dashboard.html';
-        }, 1500);
+        // Close modal if we're in one
+        const modal = document.getElementById('addProductModal');
+        if (modal) {
+          modal.classList.add('hidden');
+        }
+        
+        // Refresh data on current page if dashboard or other functions exist
+        if (window.dashboard && typeof window.dashboard.loadData === 'function') {
+          setTimeout(() => {
+            window.dashboard.loadData();
+          }, 500);
+        }
+        
+        // If we're on a dedicated add-product page, redirect to dashboard
+        if (window.location.pathname.includes('add-product.html')) {
+          setTimeout(() => {
+            window.location.href = 'index.html';
+          }, 1500);
+        }
       } else {
         this.helpers.showNotification('Грешка: ' + result.error, 'error');
       }

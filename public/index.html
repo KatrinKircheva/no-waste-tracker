@@ -201,5 +201,30 @@
     <script src="js/add-product.js"></script>
     <script src="js/app.js"></script>
     <script src="../script.js"></script>
+    <script>
+        // Modal functionality - ensure it works even if script.js doesn't load properly
+        document.addEventListener("DOMContentLoaded", function () {
+            const addProductBtn = document.getElementById("addProductBtn");
+            const modal = document.getElementById("addProductModal");
+            const closeBtn = document.querySelector(".close");
+
+            if (addProductBtn && modal) {
+                addProductBtn.addEventListener("click", function () {
+                    modal.classList.remove("hidden");
+                });
+
+                closeBtn.addEventListener("click", function () {
+                    modal.classList.add("hidden");
+                });
+
+                // Close modal when clicking outside
+                window.addEventListener("click", function (event) {
+                    if (event.target === modal) {
+                        modal.classList.add("hidden");
+                    }
+                });
+            }
+        });
+    </script>
 </body>
 </html>
