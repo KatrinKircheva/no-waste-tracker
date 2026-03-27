@@ -5,429 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>No Waste Tracker - Намалете хранителните отпадъци</title>
     <link rel="stylesheet" href="css/style.css">
-    <style>
-        body {
-            scroll-behavior: smooth;
-        }
-
-        .header h1 {
-            padding-left: 4.5rem;
-            vertical-align: middle;
-            font-size: 1.5rem;
-            color: rgba(25, 170, 14, 0.9);
-            font-family: serif;
-            text-decoration: none;
-            border: none;
-        }
-
-        /* Add a black background color to the top navigation */
-        .header {
-            display: flex;
-            justify-content: space-between;
-            background-color: white;
-            overflow: hidden;
-            align-items: center;
-            padding: 0.6rem;
-            border-bottom: 1px grey solid;
-            padding-right: 3rem;
-        }
-
-        /* Style the links inside the navigation bar */
-        .nav a {
-            gap: 3rem;
-            color: rgb(107, 180, 107);
-            text-align: center;
-            padding: 14px 16px;
-            text-decoration: none;
-            font-size: 17px;
-            float: none;
-            /* remove existing float */
-            display: inline-block;
-        }
-
-        /* Change the color of links on hover */
-        .nav a:hover {
-            background-color: rgb(156, 211, 156);
-            color: black;
-            border-radius: 6rem;
-            font-size: larger;
-            color: black;
-            font-family: serif;
-        }
-
-        .nav {
-            gap: 1rem;
-            display: flex;
-            justify-content: center;
-            border-radius: 6rem;
-            padding-right: 1rem;
-        }
-
-        #title {
-            display: flex;
-            justify-content: flex-start;
-            align-items: center;
-            padding-right: 1rem;
-        }
-
-        button {
-            font-family: Arial, Helvetica, sans-serif;
-            font-weight: bold;
-            color: white;
-            background-color: rgb(132, 199, 132);
-            border: none;
-            display: flex;
-            padding: 1rem 1.5rem;
-            justify-content: flex-end;
-            border-radius: 2rem;
-        }
-
-        button:hover {
-            color: white;
-            border: none;
-            background-color: rgb(107, 180, 107);
-        }
-
-        .banner {
-            display: block;
-            position: relative;
-            width: 100%;
-            height: auto;
-        }
-
-        .banner::after {
-            content: "";
-            position: absolute;
-            bottom: 0;
-            width: 100%;
-            height: 63%;
-            background: linear-gradient(to top, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0));
-            z-index: 1;
-        }
-
-        .banner img {
-            display: block;
-            width: 100%;
-            height: 400px;
-            border-bottom: 3px solid black;
-            z-index: 0;
-        }
-
-        .banner h2,
-        .banner p {
-            position: absolute;
-            font-size: 50px;
-            font-weight: bolder;
-            font-family: Arial, Helvetica, sans-serif;
-            color: white;
-            bottom: 6rem;
-            left: 1.5rem;
-            margin: 0;
-            padding: 0;
-            z-index: 2;
-        }
-
-        .banner p {
-            font-size: 18px;
-            font-weight: normal;
-            font-family: monospace;
-            bottom: 3rem;
-            color: rgb(209, 205, 209);
-        }
-
-        .expiring {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1rem;
-            padding-top: 0.3rem;
-            margin-left: 5rem;
-            margin-right: 5rem;
-        }
-
-        .expiring-item {
-            display: flex;
-            flex-wrap: wrap;
-            flex-direction: column;
-            align-items: center;
-            align-content: center;
-            border-radius: 10px;
-            border: 2px solid transparent;
-        }
-
-        .expiring-item.days-two {
-            border-color: #eba7a5;
-            background-color: #feeceb;
-            padding: 1.25rem;
-        }
-
-        .expiring-item.days-five {
-            border-color: #f6c493;
-            background-color: rgb(248 239 230);
-            padding: 1.25rem;
-        }
-
-        .expiring-item.still {
-            border-color: rgb(159 209 177);
-            background-color: rgb(238 240 234);
-            padding: 1.25rem;
-        }
-
-        span.numbers {
-            font-weight: bolder;
-            color: black;
-            font-size: 1.75rem;
-        }
-
-        span {
-            font-family: cursive;
-        }
-
-        span.paragraph {
-            font-weight: 600;
-            font-size: 0.875rem;
-        }
-
-        .expiring-item p {
-            margin: 0rem;
-        }
-
-        h3 {
-            margin-left: 5rem;
-            font-weight: 550;
-        }
-
-        .statistics {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1rem;
-            margin-top: 1rem;
-            margin-left: 5rem;
-            margin-right: 5rem;
-        }
-
-        .statistics-item {
-            display: flex;
-            flex-wrap: wrap;
-            flex-direction: row;
-            align-items: center;
-            align-content: center;
-            border-radius: 10px;
-            border: 1px solid transparent;
-        }
-
-        .statistics-item.saved {
-            display: flex;
-            flex-wrap: wrap;
-            flex-direction: column;
-            align-items: center;
-            align-content: center;
-            border-color: rgb(159 209 177);
-            background-color: rgb(238 240 234);
-            padding: 1.25rem;
-        }
-
-        .statistics-item.discarded {
-            display: flex;
-            flex-wrap: wrap;
-            flex-direction: column;
-            border-color: #f1cac7;
-            background-color: #f7ebe8;
-            padding: 1.25rem;
-        }
-
-        span.number {
-            padding-top: 0.3rem;
-            font-weight: bolder;
-            color: black;
-            font-size: 1.75rem;
-        }
-
-        p.paragraph {
-            margin: 0;
-            color: gray;
-        }
-
-        /* ===== MODAL (Add Product) ===== */
-        .modal {
-            position: fixed;
-            inset: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 1.5rem;
-            background: rgba(0, 0, 0, 0.45);
-            z-index: 999;
-        }
-
-        .modal .modal-content {
-            width: min(640px, 100%);
-            max-height: calc(100vh - 3rem);
-            overflow: auto;
-            background: white;
-            border-radius: 14px;
-            border: 1px solid rgba(0, 0, 0, 0.08);
-            padding: 1.25rem 1.25rem 1rem;
-            background-color: #eef6d2;
-        }
-
-        .modal .close {
-            float: right;
-            font-size: 28px;
-            line-height: 1;
-            cursor: pointer;
-            user-select: none;
-            color: #333;
-        }
-
-        .modal h2 {
-            margin: 0 0 1rem;
-            font-family: Arial, Helvetica, sans-serif;
-        }
-
-        #addProductForm {
-            display: grid;
-            gap: 0.6rem;
-        }
-
-        #addProductForm label {
-            font-family: Arial, Helvetica, sans-serif;
-            font-weight: 600;
-            color: #333;
-        }
-
-        #addProductForm input,
-        #addProductForm select,
-        #addProductForm textarea {
-            width: 100%;
-            border: 1px solid rgba(0, 0, 0, 0.18);
-            border-radius: 10px;
-            padding: 0.65rem 0.75rem;
-            font-family: Arial, Helvetica, sans-serif;
-            font-size: 14px;
-            box-sizing: border-box;
-        }
-
-        #addProductForm textarea {
-            min-height: 90px;
-            resize: vertical;
-        }
-
-        #addProductForm button[type="submit"] {
-            justify-content: center;
-            width: 100%;
-        }
-
-        .quick-add-buttons {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-        }
-
-        .quick-add-buttons .quick-add-btn {
-            justify-content: center;
-            padding: 0.75rem 1rem;
-        }
-
-        .hidden {
-            display: none;
-        }
-
-        /* ===== ACTIVE MENU ===== */
-        .nav a.active {
-            background-color: rgb(156, 211, 156);
-            border-radius: 6rem;
-            color: black;
-            font-weight: bold;
-        }
-
-        /* Features section styling */
-        .features {
-            padding: 4rem 2rem;
-            background: #f8f9fa;
-        }
-
-        .features-container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .features-title {
-            text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 3rem;
-            color: #333;
-        }
-
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-
-        .feature-card {
-            background: white;
-            border-radius: 12px;
-            padding: 2rem;
-            text-align: center;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            border: 1px solid #e0e0e0;
-            transition: all 0.3s ease;
-        }
-
-        .feature-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15);
-        }
-
-        .feature-icon {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-        }
-
-        .feature-title {
-            font-size: 1.3rem;
-            font-weight: bold;
-            margin-bottom: 1rem;
-            color: #333;
-        }
-
-        .feature-description {
-            color: #666;
-            line-height: 1.6;
-        }
-
-        @media (max-width: 768px) {
-            .header {
-                flex-direction: column;
-                padding: 1rem;
-            }
-
-            .header h1 {
-                padding-left: 0;
-                margin-bottom: 1rem;
-            }
-
-            .nav {
-                padding-right: 0;
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-
-            .expiring, .statistics {
-                grid-template-columns: 1fr;
-                margin-left: 1rem;
-                margin-right: 1rem;
-            }
-
-            .banner h2 {
-                font-size: 30px;
-            }
-
-            .features-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
 </head>
 <body>
     <header class="header">
@@ -503,7 +80,7 @@
         <img src="../banner_3.jpg" alt="food banner">
     </section>
 
-    <main>
+    <main class="dashboard-container">
         <h3 class="expiring-title">Expiring soon:</h3>
 
         <!-- EXPIRING -->
@@ -544,6 +121,72 @@
         </section>
 
         <!-- FEATURES -->
+            <!-- Summary Cards -->
+            <section class="summary-cards">
+                <div class="card total-products">
+                    <div class="card-icon">📦</div>
+                    <div class="card-content">
+                        <h3>Общо продукти</h3>
+                        <span id="totalProducts" class="card-number">0</span>
+                    </div>
+                </div>
+
+                <div class="card expiring-soon">
+                    <div class="card-icon">⏰</div>
+                    <div class="card-content">
+                        <h3>Изтичат скоро</h3>
+                        <span id="expiringSoon" class="card-number">0</span>
+                    </div>
+                </div>
+
+                <div class="card used">
+                    <div class="card-icon">✅</div>
+                    <div class="card-content">
+                        <h3>Използвани</h3>
+                        <span id="usedProducts" class="card-number">0</span>
+                    </div>
+                </div>
+
+                <div class="card eco-score">
+                    <div class="card-icon">🌍</div>
+                    <div class="card-content">
+                        <h3>Eco Score</h3>
+                        <span id="ecoScore" class="card-number">50</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Use Today Section -->
+            <section class="use-today-section">
+                <h2>🔥 Използвай днес</h2>
+                <div id="useTodayProducts" class="products-grid">
+                    <!-- Products will be added here dynamically -->
+                </div>
+            </section>
+
+            <!-- Main Products List -->
+            <section class="products-section">
+                <div class="section-header">
+                    <h2>📋 Всички продукти</h2>
+                    <div class="filter-buttons">
+                        <button class="filter-btn active" data-filter="all">Всички</button>
+                        <button class="filter-btn" data-filter="safe">Безопасни</button>
+                        <button class="filter-btn" data-filter="use-soon">Изтичат</button>
+                        <button class="filter-btn" data-filter="expired">Изтекли</button>
+                    </div>
+                </div>
+                <div id="productsList" class="products-grid">
+                    <!-- Products will be added here dynamically -->
+                </div>
+            </section>
+
+            <!-- Quick Tips -->
+            <section class="tips-section">
+                <h2>💡 Съвети за деня</h2>
+                <div id="quickTips" class="tips-grid">
+                    <!-- Tips will be added here dynamically -->
+                </div>
+            </section>
     </main>
 
     <script src="js/firebase-config.js"></script>
