@@ -95,8 +95,8 @@
 }
 
 .product-card.use-soon {
-  border-color: var(--use-soon-color);
-  background: rgba(243, 156, 18, 0.1);
+  border-color: gray;
+  background: rgb(60 243 18 / 10%);
 }
 
 .product-header {
@@ -118,6 +118,8 @@
   background: var(--bg-secondary);
   padding: 0.25rem 0.5rem;
   border-radius: 12px;
+  margin-top: 0.5rem;
+  text-align: center;
 }
 
 .product-details {
@@ -147,6 +149,7 @@
   display: flex;
   gap: 0.5rem;
   flex-wrap: wrap;
+  margin-top: -0.5rem;
 }
 
 .action-btn {
@@ -163,29 +166,45 @@
 .btn-used {
   background: var(--safe-color);
   color: white;
+  padding-left: 1rem;
+  padding-bottom: 1rem;
+  margin: 0;
+  padding-top: 1rem;
+  border-radius: 3rem;
 }
 
 .btn-used:hover {
-  background: #229954;
+  background: #74a776;
 }
 
 .btn-thrown {
   background: var(--expired-color);
   color: white;
+  padding-left: 1rem;
+  padding-bottom: 1rem;
+  padding-top: 1rem;
+  border-radius: 3rem;
+  margin: 0;
 }
 
 .btn-thrown:hover {
-  background: #c0392b;
+  background: #b37771;
 }
 
 .btn-edit {
-  background: var(--bg-secondary);
+  background:lightblue;
   color: var(--text-primary);
   border: 1px solid var(--border-color);
+  color: white;
+  padding-left: 1rem;
+  padding-bottom: 1rem;
+  padding-top: 1rem;
+  border-radius: 3rem;
+  margin: 0;
 }
 
 .btn-edit:hover {
-  background: var(--bg-primary);
+  background: #7dabb9;
 }
 
 /* Tips Section */

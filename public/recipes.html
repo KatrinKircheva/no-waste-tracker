@@ -6,295 +6,84 @@
     <title>No Waste Tracker - Рецепти</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/dashboard.css">
-    <style>
-        /* Recipes specific styles */
-        .recipes-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 2rem;
-        }
-
-        .recipes-header {
-            text-align: center;
-            margin-bottom: 3rem;
-        }
-
-        .recipes-header h1 {
-            color: var(--primary-color);
-            margin-bottom: 1rem;
-        }
-
-        .recipes-header p {
-            color: var(--text-secondary);
-            font-size: 1.1rem;
-        }
-
-        .available-ingredients {
-            background: var(--bg-card);
-            border-radius: 12px;
-            padding: 2rem;
-            margin-bottom: 2rem;
-            box-shadow: var(--shadow);
-            border: 1px solid var(--border-color);
-        }
-
-        .available-ingredients h2 {
-            color: var(--primary-color);
-            margin-bottom: 1.5rem;
-        }
-
-        .ingredients-grid {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .ingredient-tag {
-            background: var(--bg-secondary);
-            color: var(--text-primary);
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            border: 1px solid var(--border-color);
-        }
-
-        .ingredient-tag.use-soon {
-            background: rgba(243, 156, 18, 0.2);
-            border-color: var(--use-soon-color);
-            color: var(--use-soon-color);
-        }
-
-        .recipes-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-            gap: 2rem;
-            margin-top: 2rem;
-        }
-
-        .recipe-card {
-            background: var(--bg-card);
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: var(--shadow);
-            border: 1px solid var(--border-color);
-            transition: all 0.3s ease;
-        }
-
-        .recipe-card:hover {
-            transform: translateY(-4px);
-            box-shadow: var(--shadow-hover);
-        }
-
-        .recipe-header {
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-            padding: 1.5rem;
-            color: white;
-        }
-
-        .recipe-title {
-            font-size: 1.3rem;
-            font-weight: bold;
-            margin-bottom: 0.5rem;
-        }
-
-        .recipe-meta {
-            display: flex;
-            gap: 1rem;
-            font-size: 0.9rem;
-            opacity: 0.9;
-        }
-
-        .recipe-meta span {
-            display: flex;
-            align-items: center;
-            gap: 0.25rem;
-        }
-
-        .recipe-body {
-            padding: 1.5rem;
-        }
-
-        .recipe-ingredients {
-            margin-bottom: 1.5rem;
-        }
-
-        .recipe-ingredients h4 {
-            color: var(--text-primary);
-            margin-bottom: 0.75rem;
-        }
-
-        .ingredient-list {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-        }
-
-        .ingredient-item {
-            background: var(--bg-secondary);
-            padding: 0.25rem 0.75rem;
-            border-radius: 15px;
-            font-size: 0.85rem;
-            color: var(--text-secondary);
-        }
-
-        .ingredient-item.available {
-            background: rgba(46, 204, 113, 0.2);
-            color: var(--safe-color);
-            border: 1px solid var(--safe-color);
-        }
-
-        .ingredient-item.missing {
-            background: rgba(231, 76, 60, 0.2);
-            color: var(--expired-color);
-            border: 1px solid var(--expired-color);
-        }
-
-        .recipe-instructions {
-            margin-top: 1.5rem;
-        }
-
-        .recipe-instructions h4 {
-            color: var(--text-primary);
-            margin-bottom: 0.75rem;
-        }
-
-        .recipe-instructions p {
-            color: var(--text-secondary);
-            line-height: 1.6;
-        }
-
-        .recipe-actions {
-            padding: 1rem 1.5rem;
-            background: var(--bg-secondary);
-            border-top: 1px solid var(--border-color);
-        }
-
-        .match-percentage {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 0.75rem;
-        }
-
-        .match-bar {
-            height: 8px;
-            background: var(--bg-primary);
-            border-radius: 4px;
-            overflow: hidden;
-            margin-bottom: 0.75rem;
-        }
-
-        .match-fill {
-            height: 100%;
-            background: linear-gradient(90deg, var(--expired-color), var(--use-soon-color), var(--safe-color));
-            transition: width 0.5s ease;
-        }
-
-        .cook-btn {
-            width: 100%;
-            background: var(--primary-color);
-            color: white;
-            border: none;
-            padding: 0.75rem;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 1rem;
-            font-weight: 600;
-            transition: all 0.3s ease;
-        }
-
-        .cook-btn:hover {
-            background: var(--secondary-color);
-            transform: translateY(-1px);
-        }
-
-        .no-recipes {
-            text-align: center;
-            padding: 3rem;
-            color: var(--text-secondary);
-        }
-
-        .no-recipes-icon {
-            font-size: 4rem;
-            margin-bottom: 1rem;
-            opacity: 0.5;
-        }
-
-        .filter-section {
-            background: var(--bg-card);
-            border-radius: 12px;
-            padding: 1.5rem;
-            margin-bottom: 2rem;
-            box-shadow: var(--shadow);
-            border: 1px solid var(--border-color);
-        }
-
-        .filter-buttons {
-            display: flex;
-            gap: 0.5rem;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-
-        .filter-btn {
-            background: var(--bg-secondary);
-            color: var(--text-secondary);
-            border: 1px solid var(--border-color);
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 0.9rem;
-        }
-
-        .filter-btn:hover,
-        .filter-btn.active {
-            background: var(--primary-color);
-            color: white;
-            border-color: var(--primary-color);
-        }
-
-        @media (max-width: 768px) {
-            .recipes-container {
-                padding: 1rem;
-            }
-
-            .recipes-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .recipe-meta {
-                flex-direction: column;
-                gap: 0.5rem;
-            }
-        }
-    </style>
 </head>
 <body>
-    <header>
-        <nav class="navbar">
-            <div class="nav-brand">
-                <span class="logo">🌱 No Waste Tracker</span>
-            </div>
-            <div class="nav-links">
-                <a href="dashboard.html">Dashboard</a>
-                <a href="add-product.html">Добави продукт</a>
-                <a href="stats.html">Статистика</a>
-                <a href="recipes.html" class="active">Рецепти</a>
-            </div>
+    <header class="header">
+        <div class="logo-container">
+            <img class=logo" src="logo.jpg" alt="logo" height="50px">
+            <h1 id="title">No-waste tracker</h1>
+        </div>
+        <nav class="nav">
+            <a href="index.html" id="homeLink">Home</a>
+            <a href="recipes.html" id="recipesLink" class="active">Recipes</a>
+            <a href="stats.html" id="statisticsLink">Statistics</a>
         </nav>
+
+        <button type="button" id="addProductBtn">+ Add Product</button>
     </header>
+
+    <!-- MODAL FOR ADDING PRODUCT -->
+    <div id="addProductModal" class="modal hidden">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Добави продукт</h2>
+            <form id="addProductForm">
+                <label for="productName">Име на продукта:</label>
+                <input type="text" id="productName" name="name" required>
+
+                <label for="productCategory">Категория:</label>
+                <select id="productCategory" name="category" required>
+                    <option value="">Избери категория</option>
+                    <option value="млечни">Млечни</option>
+                    <option value="зеленчуци">Зеленчуци</option>
+                    <option value="плодове">Плодове</option>
+                    <option value="месо">Месо</option>
+                    <option value="хляб">Хляб</option>
+                    <option value="консерви">Консерви</option>
+                    <option value="замразени">Замразени</option>
+                    <option value="напитки">Напитки</option>
+                    <option value="други">Други</option>
+                </select>
+
+                <label for="productQuantity">Количество:</label>
+                <input type="number" id="productQuantity" name="quantity" min="0.1" step="0.1" required>
+
+                <label for="productUnit">Мерна единица:</label>
+                <select id="productUnit" name="unit" required>
+                    <option value="бр">бр</option>
+                    <option value="кг">кг</option>
+                    <option value="л">л</option>
+                    <option value="г">г</option>
+                </select>
+
+                <label for="expiryDate">Дата на изтичане:</label>
+                <input type="date" id="expiryDate" name="expiryDate" required>
+
+                <label for="productNotes">Бележки:</label>
+                <textarea id="productNotes" name="notes"></textarea>
+
+                <button type="submit">Добави продукт</button>
+            </form>
+
+            <h3>Бързо добавяне:</h3>
+            <div class="quick-add-buttons">
+                <button class="quick-add-btn" data-name="Мляко" data-category="млечни" data-unit="л">Мляко</button>
+                <button class="quick-add-btn" data-name="Хляб" data-category="хляб" data-unit="бр">Хляб</button>
+                <button class="quick-add-btn" data-name="Яйца" data-category="млечни" data-unit="бр">Яйца</button>
+                <button class="quick-add-btn" data-name="Картофи" data-category="зеленчуци" data-unit="кг">Картофи</button>
+            </div>
+        </div>
+    </div>
 
     <main class="recipes-container">
         <div class="recipes-header">
-            <h1>🍳 Рецепти с вашите продукти</h1>
+            <h1> Рецепти с вашите продукти</h1>
             <p>Открийте какво можете да сготвите с това, което имате у дома</p>
         </div>
 
         <!-- Available Ingredients Section -->
         <section class="available-ingredients">
-            <h2>🥘 Налични продукти</h2>
+            <h2> Налични продукти</h2>
             <div id="availableIngredients" class="ingredients-grid">
                 <!-- Ingredients will be added here dynamically -->
             </div>
@@ -320,7 +109,6 @@
 
         <!-- No Recipes State -->
         <div id="noRecipes" class="no-recipes" style="display: none;">
-            <div class="no-recipes-icon">🍽️</div>
             <h3>Няма подходящи рецепти</h3>
             <p>Добавете повече продукти, за да видим какво можем да сготвим!</p>
         </div>
@@ -334,5 +122,31 @@
     <script src="js/ui.js"></script>
     <script src="js/helpers.js"></script>
     <script src="js/recipes.js"></script>
+    <script src="js/add-product.js"></script>
+    <script>
+        // Modal functionality
+        document.addEventListener("DOMContentLoaded", function () {
+            const addProductBtn = document.getElementById("addProductBtn");
+            const modal = document.getElementById("addProductModal");
+            const closeBtn = document.querySelector(".close");
+
+            if (addProductBtn && modal) {
+                addProductBtn.addEventListener("click", function () {
+                    modal.classList.remove("hidden");
+                });
+
+                closeBtn.addEventListener("click", function () {
+                    modal.classList.add("hidden");
+                });
+
+                // Close modal when clicking outside
+                window.addEventListener("click", function (event) {
+                    if (event.target === modal) {
+                        modal.classList.add("hidden");
+                    }
+                });
+            }
+        });
+    </script>
 </body>
 </html>
