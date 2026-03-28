@@ -8,9 +8,12 @@
     <link rel="stylesheet" href="css/dashboard.css">
 </head>
 <body>
-    <header class="header">
-        <h1 id="title">No-waste tracker</h1>
 
+    <header class="header">
+        <div class="logo-container">
+            <img class=logo" src="logo.jpg" alt="logo" height="50px">
+            <h1 id="title">No-waste tracker</h1>
+        </div>
         <nav class="nav">
             <a href="index.html" id="homeLink" class="active">Home</a>
             <a href="recipes.html" id="recipesLink">Recipes</a>
@@ -107,27 +110,11 @@
             </div>
         </section>
 
-        <!-- STATISTICS -->
-        <section class="statistics">
-            <div class="statistics-item saved">
-                <p class="paragraph">Saved products</p>
-                <span class="number">0</span>
-            </div>
-            <div class="statistics-item saved">
-                <p class="paragraph">Money saved</p>
-                <span class="number">0</span>
-            </div>
-            <div class="statistics-item discarded">
-                <p class="paragraph">Discarded</p>
-                <span class="number">0</span>
-            </div>
-        </section>
-
         <!-- FEATURES -->
 
             <!-- Use Today Section -->
             <section class="use-today-section">
-                <h2>🔥 Използвай днес</h2>
+                <h2> Използвай днес</h2>
                 <div id="useTodayProducts" class="products-grid">
                     <!-- Products will be added here dynamically -->
                 </div>
@@ -136,7 +123,7 @@
             <!-- Main Products List -->
             <section class="products-section">
                 <div class="section-header">
-                    <h2>📋 Всички продукти</h2>
+                    <h2> Всички продукти</h2>
                     <div class="filter-buttons">
                         <button class="filter-btn active" data-filter="all">Всички</button>
                         <button class="filter-btn" data-filter="safe">Безопасни</button>

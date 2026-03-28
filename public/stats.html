@@ -9,8 +9,10 @@
 </head>
 <body>
     <header class="header">
-        <h1 id="title">No-waste tracker</h1>
-
+        <div class="logo-container">
+            <img class=logo" src="logo.jpg" alt="logo" height="50px">
+            <h1 id="title">No-waste tracker</h1>
+        </div>
         <nav class="nav">
             <a href="index.html" id="homeLink">Home</a>
             <a href="recipes.html" id="recipesLink">Recipes</a>
@@ -74,7 +76,7 @@
     </div>
 
     <main class="dashboard-container">
-        <h1 class="text-center mb-2">📊 Вашата статистика</h1>
+        <h1 class="text-center mb-2"> Вашата статистика</h1>
         <p class="text-center mb-2" style="color: var(--text-secondary);">
             Проследете напредъка си в намаляването на хранителните отпадъци
         </p>
@@ -82,7 +84,6 @@
         <!-- Summary Cards -->
         <section class="summary-cards">
             <div class="card total-products">
-                <div class="card-icon">📦</div>
                 <div class="card-content">
                     <h3>Общо продукти</h3>
                     <span id="totalProducts" class="card-number">0</span>
@@ -90,7 +91,6 @@
             </div>
             
             <div class="card expiring-soon">
-                <div class="card-icon">⏰</div>
                 <div class="card-content">
                     <h3>Изтичат скоро</h3>
                     <span id="expiringSoon" class="card-number">0</span>
@@ -98,7 +98,6 @@
             </div>
             
             <div class="card used">
-                <div class="card-icon">✅</div>
                 <div class="card-content">
                     <h3>Използвани</h3>
                     <span id="usedProducts" class="card-number">0</span>
@@ -106,7 +105,6 @@
             </div>
             
             <div class="card eco-score">
-                <div class="card-icon">🌍</div>
                 <div class="card-content">
                     <h3>Eco Score</h3>
                     <span id="ecoScore" class="card-number">50</span>
@@ -119,15 +117,9 @@
             <!-- Stats will be rendered here by JavaScript -->
         </div>
 
-        <!-- Chart Section -->
-        <div class="chart-container">
-            <h2 class="chart-title">📈 Графика на отпадъците</h2>
-            <canvas id="wasteChart"></canvas>
-        </div>
-
         <!-- Tips Section -->
         <section class="tips-section">
-            <h2>💡 Как да подобрите Eco Score</h2>
+            <h2> Как да подобрите Eco Score</h2>
             <div id="improvementTips" class="tips-grid">
                 <!-- Tips will be rendered here -->
             </div>

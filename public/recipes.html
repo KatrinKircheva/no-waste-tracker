@@ -9,8 +9,10 @@
 </head>
 <body>
     <header class="header">
-        <h1 id="title">No-waste tracker</h1>
-
+        <div class="logo-container">
+            <img class=logo" src="logo.jpg" alt="logo" height="50px">
+            <h1 id="title">No-waste tracker</h1>
+        </div>
         <nav class="nav">
             <a href="index.html" id="homeLink">Home</a>
             <a href="recipes.html" id="recipesLink" class="active">Recipes</a>
@@ -75,13 +77,13 @@
 
     <main class="recipes-container">
         <div class="recipes-header">
-            <h1>🍳 Рецепти с вашите продукти</h1>
+            <h1> Рецепти с вашите продукти</h1>
             <p>Открийте какво можете да сготвите с това, което имате у дома</p>
         </div>
 
         <!-- Available Ingredients Section -->
         <section class="available-ingredients">
-            <h2>🥘 Налични продукти</h2>
+            <h2> Налични продукти</h2>
             <div id="availableIngredients" class="ingredients-grid">
                 <!-- Ingredients will be added here dynamically -->
             </div>
@@ -107,7 +109,6 @@
 
         <!-- No Recipes State -->
         <div id="noRecipes" class="no-recipes" style="display: none;">
-            <div class="no-recipes-icon">🍽️</div>
             <h3>Няма подходящи рецепти</h3>
             <p>Добавете повече продукти, за да видим какво можем да сготвим!</p>
         </div>

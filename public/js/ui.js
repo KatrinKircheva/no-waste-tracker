@@ -24,13 +24,13 @@ class UIRenderer {
         
         <div class="product-details">
           <div class="product-quantity">
-            📊 Количество: ${this.helpers.formatQuantity(product.quantity, product.unit)}
+             Количество: ${this.helpers.formatQuantity(product.quantity, product.unit)}
           </div>
           <div class="product-expiry">
-            📅 Срок: ${this.helpers.formatDate(product.expiryDate)}
+             Срок: ${this.helpers.formatDate(product.expiryDate)}
           </div>
           <div class="days-left">
-            ⏰ ${daysLeftText}
+            ${daysLeftText}
           </div>
           ${product.notes ? `<div class="product-notes">📝 ${product.notes}</div>` : ''}
         </div>
@@ -38,20 +38,20 @@ class UIRenderer {
         <div class="product-actions">
             ${product.action === 'none' ? `
               <button class="action-btn btn-used" onclick="markProductUsed('${product.id}')">
-                ✅ Използван
+                Използван
               </button>
               <button class="action-btn btn-thrown" onclick="markProductThrown('${product.id}')">
-                ❌ Изхвърлен
+                Изхвърлен
               </button>
               <button class="action-btn btn-edit" onclick="editProduct('${product.id}')">
-                ✏️ Редактирай
+                Редактирай
               </button>
               <button class="action-btn btn-delete" onclick="deleteProduct('${product.id}')">
-                🗑️ Изтрий
+                Изтрий
               </button>
             ` : `
               <span class="action-result">
-                ${product.action === 'used' ? '✅ Използван' : '❌ Изхвърлен'}
+                ${product.action === 'used' ? 'Използван' : 'Изхвърлен'}
               </span>
             `}
           </div>
